@@ -8,122 +8,237 @@
 
   <style>
     :root{
-      --bg:#ffffff;
-      --text:#101828;
-      --muted:#475467;
-      --line:#EAECF0;
-      --card:#F9FAFB;
-      --accent:#2563EB;
+      --bg:#0B1220;
+      --surface:#0F1A33;
+      --card:#101D3D;
+      --text:#EAF0FF;
+      --muted:#A9B6D6;
+      --line:rgba(255,255,255,.10);
+      --accent:#6AA6FF;
+      --accent2:#7CFFB2;
+      --shadow: 0 12px 40px rgba(0,0,0,.35);
     }
+    [data-theme="light"]{
+      --bg:#ffffff;
+      --surface:#ffffff;
+      --card:#F8FAFC;
+      --text:#0F172A;
+      --muted:#475569;
+      --line:rgba(15,23,42,.12);
+      --accent:#2563EB;
+      --accent2:#16A34A;
+      --shadow: 0 12px 40px rgba(2,6,23,.12);
+    }
+
     *{box-sizing:border-box}
+    html{scroll-behavior:smooth;} /* smooth anchor scroll */
     body{
       margin:0;
-      font-family: system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
-      background:var(--bg);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background: radial-gradient(1200px 800px at 20% 10%, rgba(106,166,255,.22), transparent 60%),
+                  radial-gradient(1100px 700px at 80% 0%, rgba(124,255,178,.14), transparent 55%),
+                  var(--bg);
       color:var(--text);
-      line-height:1.55;
+      line-height:1.6;
     }
     a{color:var(--accent); text-decoration:none}
     a:hover{text-decoration:underline}
+
     header{
       position:sticky;
       top:0;
       z-index:50;
-      background:rgba(255,255,255,0.9);
-      backdrop-filter: blur(8px);
+      background: color-mix(in oklab, var(--surface) 80%, transparent);
+      backdrop-filter: blur(10px);
       border-bottom:1px solid var(--line);
     }
-    .nav{
-      max-width:980px;
+    .navwrap{
+      max-width:1040px;
       margin:0 auto;
       padding:12px 16px;
       display:flex;
+      align-items:center;
+      justify-content:space-between;
       gap:12px;
+    }
+    nav{
+      display:flex;
       flex-wrap:wrap;
+      gap:6px;
       align-items:center;
     }
-    .nav a{
+    .navlink{
       color:var(--text);
-      padding:6px 10px;
-      border-radius:10px;
+      padding:8px 10px;
+      border-radius:12px;
+      border:1px solid transparent;
+      font-weight:600;
+      font-size:14px;
+      opacity:.9;
     }
-    .nav a:hover{background:var(--card); text-decoration:none}
+    .navlink:hover{background:color-mix(in oklab, var(--card) 65%, transparent); text-decoration:none}
+    .navlink.active{
+      border-color:var(--line);
+      background:color-mix(in oklab, var(--card) 75%, transparent);
+      opacity:1;
+    }
+
+    .actions{display:flex; gap:8px; align-items:center}
+    .iconbtn{
+      border:1px solid var(--line);
+      background:color-mix(in oklab, var(--card) 70%, transparent);
+      color:var(--text);
+      padding:9px 10px;
+      border-radius:12px;
+      cursor:pointer;
+      font-weight:700;
+      font-size:13px;
+    }
+    .iconbtn:hover{filter:brightness(1.05)}
+
     main{
-      max-width:980px;
+      max-width:1040px;
       margin:0 auto;
-      padding:28px 16px 64px;
+      padding:26px 16px 70px;
     }
+
     section{
       padding:34px 0;
       border-bottom:1px solid var(--line);
-      scroll-margin-top:72px;
+      scroll-margin-top:78px;
     }
-    h1{font-size:34px; margin:0 0 8px}
+    h1{font-size:38px; margin:0 0 10px; line-height:1.1}
     h2{font-size:22px; margin:0 0 12px}
     h3{font-size:16px; margin:18px 0 8px}
+    p{margin:10px 0}
     .muted{color:var(--muted)}
-    .hero{
-      display:grid;
-      gap:14px;
-      padding-top:10px;
-    }
-    .pillrow{display:flex; gap:8px; flex-wrap:wrap}
-    .pill{
-      display:inline-block;
-      padding:6px 10px;
-      background:var(--card);
-      border:1px solid var(--line);
-      border-radius:999px;
-      font-size:13px;
-      color:var(--muted);
-    }
-    .btnrow{display:flex; gap:10px; flex-wrap:wrap; margin-top:6px}
-    .btn{
-      display:inline-block;
-      padding:10px 12px;
-      border-radius:12px;
-      border:1px solid var(--line);
-      background:var(--bg);
-      color:var(--text);
-      font-weight:600;
-    }
-    .btn.primary{
-      background:var(--accent);
-      border-color:var(--accent);
-      color:#fff;
-    }
-    .grid2{
+    .grid{
       display:grid;
       grid-template-columns: 1fr;
       gap:14px;
     }
-    @media(min-width:860px){
-      .grid2{grid-template-columns: 1fr 1fr}
+    @media(min-width:900px){
+      .grid.hero{grid-template-columns: 1.2fr .8fr}
+      .grid.two{grid-template-columns: 1fr 1fr}
     }
+
     .card{
-      background:var(--card);
+      background:color-mix(in oklab, var(--card) 88%, transparent);
       border:1px solid var(--line);
-      border-radius:16px;
+      border-radius:18px;
+      padding:16px;
+      box-shadow: var(--shadow);
+    }
+
+    .heroCard{
+      padding:18px;
+    }
+
+    .pills{display:flex; flex-wrap:wrap; gap:8px; margin-top:10px}
+    .pill{
+      display:inline-block;
+      padding:6px 10px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background: color-mix(in oklab, var(--surface) 70%, transparent);
+      color:var(--muted);
+      font-size:13px;
+      font-weight:650;
+    }
+
+    .btnrow{display:flex; flex-wrap:wrap; gap:10px; margin-top:14px}
+    .btn{
+      display:inline-block;
+      padding:10px 12px;
+      border-radius:14px;
+      border:1px solid var(--line);
+      background:transparent;
+      color:var(--text);
+      font-weight:800;
+      cursor:pointer;
+    }
+    .btn.primary{
+      background: linear-gradient(135deg, var(--accent), color-mix(in oklab, var(--accent2) 35%, var(--accent)));
+      border-color:transparent;
+      color:#061224;
+    }
+    [data-theme="light"] .btn.primary{color:#fff}
+    .btn:hover{filter:brightness(1.06)}
+
+    /* photo */
+    .photoWrap{
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      align-items:stretch;
+    }
+    .photo{
+      border-radius:18px;
+      border:1px dashed var(--line);
+      background:
+        radial-gradient(500px 220px at 30% 20%, rgba(106,166,255,.20), transparent 60%),
+        radial-gradient(450px 220px at 70% 0%, rgba(124,255,178,.14), transparent 55%),
+        color-mix(in oklab, var(--card) 70%, transparent);
+      min-height:240px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
       padding:14px;
     }
-    ul{margin:10px 0 0; padding-left:18px}
-    li{margin:6px 0}
-    .krow{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      margin-top:10px;
-    }
-    .k{
+    .photo small{display:block; color:var(--muted); margin-top:6px}
+    .note{
       font-size:13px;
-      padding:6px 10px;
-      border:1px solid var(--line);
-      border-radius:999px;
-      background:#fff;
       color:var(--muted);
     }
+
+    /* project cards */
+    .proj{
+      cursor:pointer;
+      transition: transform .12s ease, filter .12s ease;
+    }
+    .proj:hover{transform: translateY(-2px); filter:brightness(1.05)}
+    .proj .meta{font-size:13px; color:var(--muted); font-weight:650}
+
+    ul{margin:10px 0 0; padding-left:18px}
+    li{margin:7px 0}
+
+    /* dialog modal */
+    dialog{
+      width:min(820px, 92vw);
+      border:none;
+      border-radius:18px;
+      padding:0;
+      box-shadow: var(--shadow);
+      background: var(--surface);
+      color: var(--text);
+      border:1px solid var(--line);
+    }
+    dialog::backdrop{
+      background: rgba(0,0,0,.55);
+      backdrop-filter: blur(2px);
+    }
+    .modalHead{
+      padding:16px 16px 12px;
+      border-bottom:1px solid var(--line);
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:10px;
+    }
+    .modalBody{padding:14px 16px 16px}
+    .x{
+      border:1px solid var(--line);
+      background:transparent;
+      color:var(--text);
+      border-radius:12px;
+      padding:8px 10px;
+      cursor:pointer;
+      font-weight:900;
+    }
+
     footer{
-      padding:18px 0 0;
+      padding-top:16px;
       color:var(--muted);
       font-size:13px;
       border-bottom:none;
@@ -133,44 +248,64 @@
 
 <body>
   <header>
-    <nav class="nav" aria-label="Primary">
-      <a href="#home">Home</a>
-      <a href="#about">About</a>
-      <a href="#projects">Projects</a>
-      <a href="#experience">Experience</a>
-      <a href="#education">Education</a>
-      <a href="#activities">Activities</a>
-      <a href="#skills">Skills</a>
-      <a href="#contact">Contact</a>
-    </nav>
+    <div class="navwrap">
+      <nav aria-label="Primary">
+        <a class="navlink" href="#home" data-link="home">Home</a>
+        <a class="navlink" href="#about" data-link="about">About</a>
+        <a class="navlink" href="#projects" data-link="projects">Projects</a>
+        <a class="navlink" href="#experience" data-link="experience">Experience</a>
+        <a class="navlink" href="#education" data-link="education">Education</a>
+        <a class="navlink" href="#activities" data-link="activities">Activities</a>
+        <a class="navlink" href="#skills" data-link="skills">Skills</a>
+        <a class="navlink" href="#contact" data-link="contact">Contact</a>
+      </nav>
+
+      <div class="actions">
+        <button class="iconbtn" id="themeBtn" type="button" aria-label="Toggle theme">Theme</button>
+        <button class="iconbtn" id="topBtn" type="button" aria-label="Scroll to top">Top</button>
+      </div>
+    </div>
   </header>
 
   <main>
     <!-- HOME -->
     <section id="home">
-      <div class="hero">
-        <div>
+      <div class="grid hero">
+        <div class="card heroCard">
           <h1>Ayan Nazm</h1>
           <div class="muted">MSc Business Analytics, Warwick Business School (Sep 2025 – Sep 2026) • Coventry, UK</div>
+
+          <div class="pills" aria-label="Highlights">
+            <span class="pill">SQL</span>
+            <span class="pill">Python</span>
+            <span class="pill">R</span>
+            <span class="pill">Tableau</span>
+            <span class="pill">Finance automation</span>
+            <span class="pill">ERP integrations (SAP, Oracle)</span>
+          </div>
+
+          <div class="btnrow">
+            <a class="btn primary" href="mailto:ayan4dreem71@gmail.com">Email</a>
+            <a class="btn" href="https://www.linkedin.com/in/ayan-nazm-102290184/" target="_blank" rel="noreferrer">LinkedIn</a>
+            <button class="btn" id="copyEmail" type="button">Copy email</button>
+            <button class="btn" id="copyPhone" type="button">Copy phone</button>
+          </div>
+
+          <p class="muted">
+            Previously at HighRadius delivering Cash Application implementations and analytics to automate invoice-to-payment processes and improve operational KPIs.
+          </p>
         </div>
 
-        <div class="pillrow" aria-label="Highlights">
-          <span class="pill">Finance automation</span>
-          <span class="pill">SQL</span>
-          <span class="pill">Python</span>
-          <span class="pill">Tableau</span>
-          <span class="pill">ERP integrations (SAP, Oracle)</span>
-        </div>
-
-        <div class="btnrow">
-          <a class="btn primary" href="mailto:ayan4dreem71@gmail.com">Email</a>
-          <a class="btn" href="https://www.linkedin.com/in/ayan-nazm-102290184/" target="_blank" rel="noreferrer">LinkedIn</a>
-          <!-- Optional: add your CV PDF later and update href -->
-          <a class="btn" href="#" onclick="alert('Upload your CV PDF to this repo and replace this link.'); return false;">Download CV</a>
-        </div>
-
-        <div class="muted">
-          Previously at HighRadius (Functional Consultant / Associate Consultant / Associate Data Analyst) delivering Cash Application implementations and analytics for enterprise reconciliation workflows.
+        <div class="photoWrap">
+          <div class="photo card" id="photoBox">
+            <div>
+              <strong>Photo placeholder</strong>
+              <small>Replace with your headshot (recommended: square JPG/PNG)</small>
+            </div>
+          </div>
+          <div class="note">
+            Tip: add a file named <strong>photo.jpg</strong> to this GitHub repo and I’ll show you exactly where to reference it in the code.
+          </div>
         </div>
       </div>
     </section>
@@ -178,16 +313,297 @@
     <!-- ABOUT -->
     <section id="about">
       <h2>About</h2>
-      <p>
-        I’m a Business Analytics postgraduate student at Warwick Business School with experience in cash application and invoice-to-payment automation for global enterprise clients.
-      </p>
-      <p class="muted">
-        I use SQL and Python to build data validation/performance measurement frameworks, reduce exceptions, and improve operational KPIs in finance operations.
-      </p>
+      <div class="grid two">
+        <div class="card">
+          <p>
+            I’m a Business Analytics postgraduate student at Warwick Business School with experience delivering cash application and invoice-to-payment automation for global enterprise clients.
+          </p>
+          <p class="muted">
+            I work at the intersection of data, operations, and stakeholders—building SQL-based measurement frameworks and using Python analytics to improve data quality, reduce exceptions, and strengthen business outcomes.
+          </p>
+        </div>
+        <div class="card">
+          <h3>Focus areas</h3>
+          <ul>
+            <li>Data management & validation using SQL</li>
+            <li>Analytics & modelling using Python/R</li>
+            <li>Dashboards and KPI storytelling (Tableau)</li>
+            <li>UAT facilitation and stakeholder enablement</li>
+          </ul>
+        </div>
+      </div>
     </section>
 
     <!-- PROJECTS -->
     <section id="projects">
       <h2>Projects</h2>
-      <p class="muted">
-        Add links (GitHub/Tableau/Public report) as you publish them. I’ve written these as portfolio-ready pro
+      <p class="muted">Click a project to view details. Add your GitHub/Tableau links when ready.</p>
+
+      <div class="grid two">
+        <div class="card proj" role="button" tabindex="0"
+             data-title="Invoice-to-Payment Reconciliation Analytics"
+             data-subtitle="Python • SQL • Exception analysis • KPI reporting"
+             data-bullets="Explored payment/remittance patterns and exception drivers in reconciliation workflows.|Created validation checks and KPI views to monitor match-rate, downtime, and data quality.|Planned deliverables: notebook + short report + reproducible dataset schema."
+             data-links="GitHub:#,Report/Demo:#">
+          <h3>Invoice-to-Payment Reconciliation Analytics</h3>
+          <div class="meta">Python • SQL • Exception analysis • KPI reporting</div>
+          <p class="muted">Pattern discovery + data quality checks + KPI reporting.</p>
+        </div>
+
+        <div class="card proj" role="button" tabindex="0"
+             data-title="ERP Integration & UAT Performance Tracker"
+             data-subtitle="SQL • QA/UAT • Stakeholder reporting"
+             data-bullets="Designed SQL checks for integration validation and reconciliation error tracking.|Created a simple KPI tracker for pre/post go-live monitoring.|Packaged outcomes as a dashboard + one-page operating guide."
+             data-links="GitHub:#,Dashboard:#">
+          <h3>ERP Integration & UAT Performance Tracker</h3>
+          <div class="meta">SQL • QA/UAT • Stakeholder reporting</div>
+          <p class="muted">UAT insights + post go-live KPI measurement.</p>
+        </div>
+
+        <div class="card proj" role="button" tabindex="0"
+             data-title="Generative AI Mini-App (Course Project)"
+             data-subtitle="Generative AI • Prompting • Evaluation"
+             data-bullets="Built an AI app concept aligned to business workflows (summarisation, QA, insights).|Defined evaluation criteria and tested prompt iterations for reliability.|Deliverables: demo + evaluation write-up."
+             data-links="GitHub:#,Demo:#">
+          <h3>Generative AI Mini-App (Course Project)</h3>
+          <div class="meta">Generative AI • Prompting • Evaluation</div>
+          <p class="muted">A course-style app with evaluation and iteration.</p>
+        </div>
+
+        <div class="card proj" role="button" tabindex="0"
+             data-title="Tableau KPI Dashboard"
+             data-subtitle="Tableau • Data storytelling • KPI design"
+             data-bullets="Built an executive dashboard with KPI definitions and drill-down filters.|Focused on operational performance measurement and actionable insights.|Publish plan: Tableau Public + short write-up of decisions and insights."
+             data-links="Tableau Public:#,Write-up:#">
+          <h3>Tableau KPI Dashboard</h3>
+          <div class="meta">Tableau • Data storytelling • KPI design</div>
+          <p class="muted">Dashboard + KPI narrative + stakeholder-ready layout.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section id="experience">
+      <h2>Experience</h2>
+
+      <div class="card">
+        <h3>HighRadius — Functional Consultant (Jan 2025 – Jul 2025)</h3>
+        <ul>
+          <li>Led strategic planning and full-cycle project delivery for enterprise clients, achieving 95%+ auto-match accuracy in invoice-to-payment automation.</li>
+          <li>Managed SQL-based data management and performance measurement frameworks, reducing reconciliation downtime by 30%.</li>
+          <li>Aligned automation initiatives with client objectives, reducing manual intervention by 40%.</li>
+          <li>Collaborated with senior stakeholders, contributing to a 15% improvement in client operational KPIs.</li>
+        </ul>
+      </div>
+
+      <div class="card" style="margin-top:14px;">
+        <h3>HighRadius — Associate Consultant (Jan 2024 – Dec 2024)</h3>
+        <ul>
+          <li>Delivered end-to-end project management for ERP integrations (SAP, Oracle), increasing automation efficiency by 25%.</li>
+          <li>Applied Python-based analytics and statistical modelling to improve remittance data accuracy, reducing pre-deployment exceptions by 20%.</li>
+          <li>Facilitated UAT sessions and stakeholder training, ensuring 100% user adoption and measurable post-go-live improvements.</li>
+        </ul>
+      </div>
+
+      <div class="card" style="margin-top:14px;">
+        <h3>HighRadius — Associate Data Analyst (Jul 2022 – Dec 2023)</h3>
+        <ul>
+          <li>Performed data and econometric analysis on high-volume financial datasets using Python and SQL, improving reconciliation rates by 20%.</li>
+          <li>Designed SQL-driven data collection and validation systems, cutting manual validation time by 35%.</li>
+          <li>Supported financial and business modelling to quantify automation impact, improving project delivery timelines by 25%.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- EDUCATION -->
+    <section id="education">
+      <h2>Education</h2>
+      <div class="grid two">
+        <div class="card">
+          <h3>Warwick Business School — MSc Business Analytics</h3>
+          <div class="muted">Sep 2025 – Sep 2026</div>
+          <p class="muted">Modules: Business Statistics, Optimisation Models, Data Management, Generative AI and AI Applications</p>
+        </div>
+        <div class="card">
+          <h3>KiiT University — BTech Electronics & Telecommunication</h3>
+          <div class="muted">Jul 2018 – Jun 2022</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ACTIVITIES -->
+    <section id="activities">
+      <h2>Activities</h2>
+      <div class="grid two">
+        <div class="card">
+          <h3>Qutopia</h3>
+          <div class="muted">Mar 2019 – Jun 2022</div>
+          <p class="muted">Inter-university quiz competitions; analytical reasoning and teamwork under pressure.</p>
+        </div>
+        <div class="card">
+          <h3>Kalalight</h3>
+          <div class="muted">Dec 2018 – Jun 2022</div>
+          <p class="muted">Social-themed street plays; collaboration, creativity, and audience engagement.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills">
+      <h2>Skills</h2>
+      <div class="grid two">
+        <div class="card">
+          <h3>Tools</h3>
+          <div class="pills">
+            <span class="pill">Python</span><span class="pill">R</span><span class="pill">SQL</span><span class="pill">Tableau</span><span class="pill">Excel</span>
+          </div>
+        </div>
+        <div class="card">
+          <h3>Languages & Interests</h3>
+          <p class="muted">Languages: English (Professional), Hindi (Native)</p>
+          <p class="muted">Interests: Football, Cricket, Theatre, Mountaineering, Quizzing</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+      <h2>Contact</h2>
+      <div class="card">
+        <p><strong>Location:</strong> Coventry, UK</p>
+        <p><strong>Phone:</strong> <span id="phoneText">07584 379180</span></p>
+        <p><strong>Email:</strong> <a href="mailto:ayan4dreem71@gmail.com" id="emailText">ayan4dreem71@gmail.com</a></p>
+        <p><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/ayan-nazm-102290184/" target="_blank" rel="noreferrer">ayan-nazm-102290184</a></p>
+      </div>
+
+      <footer class="muted">
+        © <span id="year"></span> Ayan Nazm • Hosted on GitHub Pages
+      </footer>
+    </section>
+  </main>
+
+  <!-- Project modal (native dialog) -->
+  <dialog id="projDialog" aria-label="Project details modal">
+    <div class="modalHead">
+      <div>
+        <div style="font-weight:900; font-size:16px" id="dTitle">Project</div>
+        <div class="muted" id="dSub">Subtitle</div>
+      </div>
+      <button class="x" id="dClose" type="button" aria-label="Close">✕</button>
+    </div>
+    <div class="modalBody">
+      <ul id="dList"></ul>
+      <div class="pills" id="dLinks" style="margin-top:12px;"></div>
+    </div>
+  </dialog>
+
+  <script>
+    // Footer year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Theme toggle (persisted)
+    const themeBtn = document.getElementById('themeBtn');
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) document.documentElement.setAttribute('data-theme', savedTheme);
+
+    themeBtn.addEventListener('click', () => {
+      const current = document.documentElement.getAttribute('data-theme');
+      const next = current === 'light' ? '' : 'light';
+      if (next) document.documentElement.setAttribute('data-theme', next);
+      else document.documentElement.removeAttribute('data-theme');
+      localStorage.setItem('theme', next);
+    });
+
+    // Scroll to top
+    document.getElementById('topBtn').addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // Copy helpers
+    async function copyText(txt){
+      try{
+        await navigator.clipboard.writeText(txt);
+        alert('Copied to clipboard');
+      }catch(e){
+        // fallback
+        const ta = document.createElement('textarea');
+        ta.value = txt;
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        ta.remove();
+        alert('Copied to clipboard');
+      }
+    }
+    document.getElementById('copyEmail').addEventListener('click', () => copyText('ayan4dreem71@gmail.com'));
+    document.getElementById('copyPhone').addEventListener('click', () => copyText('07584 379180'));
+
+    // Active nav highlight with IntersectionObserver
+    const navLinks = [...document.querySelectorAll('.navlink')];
+    const sections = [...document.querySelectorAll('main section')];
+    const map = new Map(navLinks.map(a => [a.dataset.link, a]));
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting){
+          navLinks.forEach(l => l.classList.remove('active'));
+          const id = e.target.id;
+          const link = map.get(id);
+          if (link) link.classList.add('active');
+        }
+      });
+    }, { root: null, threshold: 0.35 });
+    sections.forEach(s => io.observe(s));
+
+    // Project modal using <dialog> showModal() for interactivity
+    const dialog = document.getElementById('projDialog');
+    const dTitle = document.getElementById('dTitle');
+    const dSub = document.getElementById('dSub');
+    const dList = document.getElementById('dList');
+    const dLinks = document.getElementById('dLinks');
+    const dClose = document.getElementById('dClose');
+
+    function openProject(card){
+      dTitle.textContent = card.dataset.title || 'Project';
+      dSub.textContent = card.dataset.subtitle || '';
+      dList.innerHTML = '';
+      dLinks.innerHTML = '';
+
+      const bullets = (card.dataset.bullets || '').split('|').filter(Boolean);
+      bullets.forEach(b => {
+        const li = document.createElement('li');
+        li.textContent = b.trim();
+        dList.appendChild(li);
+      });
+
+      const linksRaw = (card.dataset.links || '').split(',').map(x => x.trim()).filter(Boolean);
+      linksRaw.forEach(pair => {
+        const [label, href] = pair.split(':');
+        const a = document.createElement('a');
+        a.className = 'pill';
+        a.textContent = label || 'Link';
+        a.href = (href && href.trim()) ? href.trim() : '#';
+        a.target = '_blank';
+        a.rel = 'noreferrer';
+        dLinks.appendChild(a);
+      });
+
+      dialog.showModal(); // native modal behavior [web:51]
+    }
+
+    document.querySelectorAll('.proj').forEach(card => {
+      card.addEventListener('click', () => openProject(card));
+      card.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') openProject(card);
+      });
+    });
+
+    dClose.addEventListener('click', () => dialog.close());
+    dialog.addEventListener('click', (e) => {
+      // close when clicking backdrop area
+      const r = dialog.getBoundingClientRect();
+      const inDialog = (r.top <= e.clientY && e.clientY <= r.bottom && r.left <= e.clientX && e.clientX <= r.right);
+      if (!inDialog) dialog.close();
+    });
+  </script>
+</body>
+</html>
